@@ -29,20 +29,15 @@ export default function Create(){
                     router.push(`/read/${lastid}`); //페이지 이동
                 })
         }}>
-
         <p>
             <input type="text" name="title" placeholder="title"/>
         </p>
-        
         <p>
             <textarea name="body" placeholder="body"/>
         </p>
-        
         <p>
             <input type="submit" value="create"/>
         </p>
-
-
         </form>
 
     )

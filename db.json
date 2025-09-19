@@ -11,16 +11,21 @@
       "body": "css is..."
     },
     {
-      "id": "d5d5",
-      "title": "123",
-      "body": "234"
+      "id": "ae56",
+      "title": "dfv",
+      "body": "v"
     }
   ],
   "posts": [
     {
       "id": "1",
       "title": "json-server",
-      "autoor": "typicode"
+      "body": "typicode"
+    },
+    {
+      "title": "cas",
+      "body": "cas",
+      "id": "1xWeay7"
     }
   ]
 }
