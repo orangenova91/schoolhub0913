@@ -5,13 +5,9 @@ import { useRouter } from "next/navigation";
 export default function Create(){
     const router = useRouter();
     return(
-        <form onSubmit={(e)=>{
+        <form onSubmit={async (e)=>{
             e.preventDefault();
 
-            //form tag 안에 있는 input, textarea 태그의 value값을 가져올 수 있다.
-            //e.target.태그name.value
-            //e.target.title.value
-            //e.target.body.value
             const title = e.target.title.value;
             const body = e.target.body.value;
             const options = {
@@ -21,13 +17,24 @@ export default function Create(){
                 },
                 body: JSON.stringify({title, body})
             }
-            fetch('http://localhost:9999/topics',options)
-                .then(res=>res.json())
-                .then(result=>{
-                    console.log(result);
-                    const lastid = result.id;
-                    router.push(`/read/${lastid}`); //페이지 이동
-                })
+
+            // fetch 요청이 완료될 때까지 기다립니다.
+            const resp = await fetch('http://localhost:9999/topics', options);
+            const result = await resp.json();
+            
+            console.log(result);
+            const lastid = result.id;
+            
+            // 데이터가 완전히 생성된 것을 확인한 후 캐시를 수동으로 재검증합니다.
+            // ✅ API Route를 호출하여 서버 컴포넌트의 캐시를 무효화합니다.
+            await fetch('/api/revalidate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ path: '/' })
+            });
+
+            // ✅ 이제 페이지를 이동하여 최신 데이터를 가져옵니다.
+            router.push(`/read/${lastid}`);
         }}>
         <p>
             <input type="text" name="title" placeholder="title"/>
@@ -39,6 +46,5 @@ export default function Create(){
             <input type="submit" value="create"/>
         </p>
         </form>
-
     )
 }
