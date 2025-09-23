@@ -21,7 +21,7 @@ export default function Create(){
                 },
                 body: JSON.stringify({title, body})
             }
-            fetch('http://localhost:9999/topics',options)
+            fetch(`http://localhost:9999/topics`,options)
                 .then(res=>res.json())
                 .then(result=>{
                     console.log(result);

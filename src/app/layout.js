@@ -1,17 +1,7 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import Control from "./Control";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "SchoolHub",
@@ -24,7 +14,7 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
 
-  const resp = await fetch('http://localhost:9999/topics', {cache:'no-store'});
+  const resp = await fetch(`http://localhost:9999/topics`,{cache:'no-store'});
   const topics = await resp.json();
   
 
@@ -38,13 +28,6 @@ export default async function RootLayout({ children }) {
           return <li key={topic.id}><Link href={`/read/${topic.id}`}>{topic.title}</Link></li>
         })}
       </ol>
-      
-      {/*}
-      <ol>
-        <li><Link href="/read/1">html</Link></li>
-        <li><Link href="/read/2">css</Link></li>
-      </ol>
-        */}
 
         {children}
    

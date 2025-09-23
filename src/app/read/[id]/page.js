@@ -5,7 +5,7 @@
 
 export default async function Read({params}){
     const {id} = await params;
-    const resp = await fetch(`http://localhost:9999/topics/${id}`);
+    const resp = await fetch(`http://localhost:9999/topics/${id}`,{cache:'no-store'});
     const topic = await resp.json();
   
 
